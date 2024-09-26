@@ -1,0 +1,138 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API for managing a personal budget.",
+    "version": "1.0.0",
+    "title": "Personal Budget API"
+  },
+  "host": "137.184.20.197:5000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "items",
+      "description": "Operations on budget items"
+    }
+  ],
+  "paths": {
+    "/items": {
+      "get": {
+        "tags": ["items"],
+        "summary": "Retrieve all items",
+        "responses": {
+          "200": {
+            "description": "A list of all budget items"
+          }
+        }
+      },
+      "post": {
+        "tags": ["items"],
+        "summary": "Add a new item",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Item to add",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Groceries"
+                },
+                "value": {
+                  "type": "integer",
+                  "example": 150
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Item added successfully"
+          }
+        }
+      }
+    },
+    "/items/{item_id}": {
+      "parameters": [
+        {
+          "name": "item_id",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "description": "ID of the item"
+        }
+      ],
+      "put": {
+        "tags": ["items"],
+        "summary": "Update an existing item",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated item data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Utilities"
+                },
+                "value": {
+                  "type": "integer",
+                  "example": 120
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item updated successfully"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["items"],
+        "summary": "Partially update an item",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Partial item update",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "integer",
+                  "example": 180
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item partially updated"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["items"],
+        "summary": "Delete an item",
+        "responses": {
+          "200": {
+            "description": "Item deleted successfully"
+          },
+          "404": {
+            "description": "Item not found"
+          }
+        }
+      }
+    }
+  }
+}
